@@ -109,8 +109,8 @@ export default {
 
     intervalSet: function () {
 
-      if (this.pointsLimitedTime>0) {
-        setTimeout(()=>{
+      if (this.pointsLimitedTime > 0) {
+        setTimeout(() => {
           this.pointsLimited = true
         }, this.pointsLimitedTime)
       }
@@ -120,7 +120,7 @@ export default {
         this.chartOptions.series[1].data.push([this.counter * 0.1, parseFloat(this.acceleration2.toFixed(3))])
         this.chartOptions.series[2].data.push([this.counter * 0.1, parseFloat(this.acceleration3.toFixed(3))])
 
-        if(this.pointsLimited) {
+        if (this.pointsLimited) {
           this.chartOptions.series[0].data.shift()
           this.chartOptions.series[1].data.shift()
           this.chartOptions.series[2].data.shift()
@@ -158,7 +158,7 @@ export default {
     },
 
     timeLimitChange: function (e) {
-        this.pointsLimitedTime = e*1000
+      this.pointsLimitedTime = e * 1000
     }
   },
 

@@ -1,5 +1,6 @@
 <template>
-  <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @time="getTime" @changeAxes="changeAxes"
+  <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @time="getTime"
+                  @changeAxes="changeAxes"
                   :allowChangingAxes="true" @requestCSV="requestCSV" :call="callCSV" :csv="csv">
     <highcharts class="hc" :options="chartOptions"/>
   </chart-template>
@@ -108,17 +109,18 @@ export default {
 
     intervalSet: function () {
 
-      if (this.pointsLimitedTime>0) {
-        setTimeout(()=>{
+      if (this.pointsLimitedTime > 0) {
+        setTimeout(() => {
           this.pointsLimited = true
         }, this.pointsLimitedTime)
       }
 
       this.interval = setInterval(() => {
+
         this.chartOptions.series[0].data.push([this.counter * 0.1, parseFloat(this.acceleration1.toFixed(2))])
         this.chartOptions.series[1].data.push([this.counter * 0.1, parseFloat(this.acceleration2.toFixed(2))])
 
-        if(this.pointsLimited) {
+        if (this.pointsLimited) {
           this.chartOptions.series[0].data.shift()
           this.chartOptions.series[1].data.shift()
         }
@@ -179,7 +181,7 @@ export default {
     },
 
     timeLimitChange: function (e) {
-        this.pointsLimitedTime = e*1000
+      this.pointsLimitedTime = e * 1000
     }
   },
 
