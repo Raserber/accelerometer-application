@@ -287,6 +287,7 @@ export default {
     errorPopover: "Error",
     accordionLimitedTime: false,
     timeLimit: null,
+    alertSpeedomeeter: false
   }),
 
   methods: {
@@ -299,8 +300,13 @@ export default {
       this.$emit('requestCSV', '.')
     },
 
-    toSpeed: function () {
-      this.$emit("toSpeed", '.')
+    toSpeed: async function () {
+      if (this.alertSpeedomeeter) {
+        this.$emit("toSpeed", '.')
+      } else {
+        await this.openToastAdvertingSpeedometeer()
+      }
+      this.alertSpeedomeeter = true
     },
 
     writeToClipboard: async function () {
@@ -365,6 +371,19 @@ export default {
         message: 'Saved on your device',
         showCloseButton: false,
         color: "success"
+      });
+
+      await toast.present();
+    },
+
+    openToastAdvertingSpeedometeer: async function () {
+      const toast = await toastController.create({
+        position: "bottom",
+        mode: "ios",
+        duration: 2000,
+        icon: hammer,
+        message: "This feature don't work correctly (click again to lauch anyway)",
+        showCloseButton: false
       });
 
       await toast.present();
