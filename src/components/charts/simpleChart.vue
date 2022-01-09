@@ -1,8 +1,7 @@
 <template>
-  <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @time="getTime"
-                  @changeAxes="changeAxes"
+  <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @toSpeed="requestSpeed" @time="getTime" @changeAxes="changeAxes"
                   :allowChangingAxes="true" @requestCSV="requestCSV" :call="callCSV" :csv="csv">
-    <highcharts class="hc" :options="chartOptions"/>
+    <highcharts class="hc" :options="!speed ? chartOptions : chartOptionsSpeed"/>
   </chart-template>
 </template>
 
@@ -43,6 +42,7 @@ export default {
   data: () => ({
     callCSV: false,
     isOpen: false,
+    speed: false,
     counter: 0,
     counterSave: 0,
     chartOptions: {
@@ -86,12 +86,55 @@ export default {
           color: "$"
         }]
     },
+    chartOptionsSpeed: {
+      chart: {
+        type: "spline",
+        width: 400,
+        boostThreshold: 1,
+        turboThreshold: 0,
+        animation: true
+      },
+      exporting: {
+        fallbackToExportServer: false,
+        enabled: false
+      },
+      xAxis: {
+        title: {
+          text: "Temps (s)"
+        }
+      },
+      yAxis: {
+        title: {
+          text: "Vitesse $"
+        }
+      },
+      plotOptions: {
+        series: {
+          marker: {
+            enabled: false
+          }
+        }
+      },
+      title: {
+        text: 'Vitesse $ de votre téléphone',
+        align: "center",
+        widthAdjust: -200
+      },
+      series: [
+        {
+          name: "en $",
+          data: [],
+          color: "$"
+        }]
+    },
     interval: undefined,
     timeout: undefined,
     csv: undefined,
     time: undefined,
     pointsLimited: false,
-    pointsLimitedTime: -2
+    pointsLimitedTime: -2,
+    tPrec: 1,
+    vPrec: 0
   }),
 
   methods: {
@@ -101,19 +144,36 @@ export default {
       this.counterSave = this.counter
     },
 
+    requestSpeed: function () {
+      this.speed = true
+
+      this.chartOptionsSpeed.series[0].data = this.chartOptions.series[0].data.map((x) => {
+
+        console.log(Number(x[0]) === 0 ? 0 : (Number(x[1]).toFixed(1)/(Number(x[0] - this.tPrec)).toFixed(1) + this.vPrec))
+
+        let a = Number(x[0]) === 0 ? 0 : (Number(x[1]).toFixed(1)/(Number(x[0] - this.tPrec)).toFixed(1) + this.vPrec)
+        this.tPrec = Number(x[0])
+        this.vPrec = a
+        return ([x[0], a])
+      })
+
+      console.log(this.chartOptionsSpeed.series[0].data)
+      },
+
     intervalSet: function () {
 
-      if (this.pointsLimitedTime > 0) {
-        setTimeout(() => {
+      if (this.pointsLimitedTime>0) {
+        setTimeout(()=>{
           this.pointsLimited = true
         }, this.pointsLimitedTime)
       }
 
       this.interval = setInterval(() => {
 
+
         this.chartOptions.series[0].data.push([this.counter * 0.1, parseFloat(this.acceleration.toFixed(2))])
 
-        if (this.pointsLimited) {
+        if(this.pointsLimited) {
           this.chartOptions.series[0].data.shift()
         }
 
@@ -139,29 +199,39 @@ export default {
         case 0:
           this.chartOptions.series[0].name = "en x"
           this.chartOptions.series[0].color = "red"
+          this.chartOptionsSpeed.series[0].name = "en x"
+          this.chartOptionsSpeed.series[0].color = "red"
           break
 
         case 1:
           this.chartOptions.series[0].name = "en y"
           this.chartOptions.series[0].color = "green"
+          this.chartOptionsSpeed.series[0].name = "en y"
+          this.chartOptionsSpeed.series[0].color = "green"
           break
 
         case 2:
           this.chartOptions.series[0].name = "en z"
           this.chartOptions.series[0].color = "blue"
+          this.chartOptionsSpeed.series[0].name = "en z"
+          this.chartOptionsSpeed.series[0].color = "blue"
           break
       }
 
       switch (this.accel) {
 
         case "0":
-          this.chartOptions.title.text = "Accélération linéaire"
-          this.chartOptions.yAxis.title.text = "Accélération (m/s^2)"
+          this.chartOptions.title.text = this.axes.length === 1 ? "Accélération linéaire" : "Accélérations linéaires"
+          this.chartOptions.yAxis.title.text = "Accélération (m/s^1)"
+          this.chartOptionsSpeed.title.text = this.axes.length === 1 ? "Vitesse linéaire" : "Vitesses linéaires"
+          this.chartOptionsSpeed.yAxis.title.text = "Speed (m/s^1)"
           break
 
         case "1":
-          this.chartOptions.title.text ="Accélération angulaire"
-          this.chartOptions.yAxis.title.text = "Accélération (rad/s^2)"
+          this.chartOptions.title.text = this.axes.length === 1 ? "Accélération angulaire" : "Accélérations angulaires"
+          this.chartOptions.yAxis.title.text = "Accélération (rad/s^1)"
+          this.chartOptions.title.text = this.axes.length === 1 ? "Vitesse angulaire" : "Vitesses angulaires"
+          this.chartOptions.yAxis.title.text = "Vitesse (rad/s^1)"
           break
       }
     },
@@ -171,7 +241,7 @@ export default {
     },
 
     timeLimitChange: function (e) {
-      this.pointsLimitedTime = e * 1000
+        this.pointsLimitedTime = e*1000
     }
   },
 
@@ -195,6 +265,7 @@ export default {
 
   watch: {
     acquisition: function (now) {
+      this.speed =false
       if (now) {
         this.intervalSet()
         if (this.time) {
@@ -212,6 +283,7 @@ export default {
 
 
     reset: function () {
+      this.speed = false
       this.pointsLimited = false
       try {
         clearInterval(this.interval)
@@ -231,6 +303,7 @@ export default {
 
   mounted() {
     this.chartOptions.chart.width = (window.screen.width * 0.8) || 400
+    this.chartOptionsSpeed.chart.width = (window.screen.width * 0.8) || 400
 
     this.init()
   },

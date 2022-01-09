@@ -112,17 +112,19 @@
 
         <ion-item>
 
-          <ion-buttons mode="ios">
+          <ion-buttons mode="ios" slot="start">
             <ion-button @click="requestCSV" fill="outline" color="primary" mode="ios">
               <ion-icon :icon="codeDownloadOutline" slot="start"/>
               CSV
             </ion-button>
-<!--            <ion-button @click="toSpeed" fill="outline" color="primary" mode="ios">-->
-<!--              <ion-icon :icon="speedometerOutline" slot="start"></ion-icon>-->
-<!--            </ion-button>-->
             <ion-button @click="ThreeJSFeature" fill="outline" color="primary" mode="ios">
               <ion-icon slot="start" :icon="prismOutline"/>
-              THREEjs 3D
+               3D
+            </ion-button>
+          </ion-buttons>
+          <ion-buttons mode="ios" slot="end">
+            <ion-button @click="toSpeed" fill="outline" color="primary" mode="ios">
+              <ion-icon :icon="speedometerOutline"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-item>
@@ -190,7 +192,7 @@ import {
 } from "@ionic/vue"
 
 import {
-  // speedometerOutline,
+  speedometerOutline,
   codeDownloadOutline,
   prismOutline,
   copyOutline,
@@ -262,7 +264,7 @@ export default {
 
   data: () => ({
     statut: null,
-    // speedometerOutline,
+    speedometerOutline,
     close,
     codeDownloadOutline,
     prismOutline,
@@ -297,9 +299,9 @@ export default {
       this.$emit('requestCSV', '.')
     },
 
-    // toSpeed: function () {
-    //   this.$emit("toSpeed", '.')
-    // },
+    toSpeed: function () {
+      this.$emit("toSpeed", '.')
+    },
 
     writeToClipboard: async function () {
       await Clipboard.write({
