@@ -14,6 +14,7 @@
     <ion-content>
       <ion-accordion-group :multiple="true">
         <ion-accordion :disabled="checkAcquisition">
+
           <ion-item slot="header">
             <ion-checkbox style="pointer-events: none" v-model="accordionLimitedTime" :clearInput="true"
                           slot="start"></ion-checkbox>
@@ -123,7 +124,7 @@
             </ion-button>
           </ion-buttons>
           <ion-buttons mode="ios" slot="end">
-            <ion-button @click="toSpeed" fill="outline" color="primary" mode="ios">
+            <ion-button :disabled="!buttonSpeed" @click="toSpeed" fill="outline" color="primary" mode="ios">
               <ion-icon :icon="!haveSpeed ? speedometerOutline : caretBack"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -293,7 +294,8 @@ export default {
     errorPopover: "Error",
     accordionLimitedTime: false,
     timeLimit: null,
-    alertSpeedomeeter: false
+    alertSpeedomeeter: false,
+    buttonSpeed: false
   }),
 
   methods: {
@@ -308,7 +310,6 @@ export default {
 
     toSpeed: async function () {
       if (this.alertSpeedomeeter) {
-        console.log(this.haveSpeed)
         this.$emit("toSpeed", !this.haveSpeed)
       } else {
         await this.openToastAdvertingSpeedometeer()
@@ -405,6 +406,10 @@ export default {
   },
 
   watch: {
+
+    acquisition: function () {
+      this.buttonSpeed = true
+    },
 
     alert: async function () {
 
