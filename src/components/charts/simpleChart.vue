@@ -139,34 +139,28 @@ export default {
         case 0:
           this.chartOptions.series[0].name = "en x"
           this.chartOptions.series[0].color = "red"
-          this.chartOptionsSpeed.series[0].name = "en x"
-          this.chartOptionsSpeed.series[0].color = "red"
           break
 
         case 1:
           this.chartOptions.series[0].name = "en y"
           this.chartOptions.series[0].color = "green"
-          this.chartOptionsSpeed.series[0].name = "en y"
-          this.chartOptionsSpeed.series[0].color = "green"
           break
 
         case 2:
           this.chartOptions.series[0].name = "en z"
           this.chartOptions.series[0].color = "blue"
-          this.chartOptionsSpeed.series[0].name = "en z"
-          this.chartOptionsSpeed.series[0].color = "blue"
           break
       }
 
       switch (this.accel) {
 
         case "0":
-          this.chartOptions.title.text = this.axes.length === 1 ? "Accélération linéaire" : "Accélérations linéaires"
+          this.chartOptions.title.text = "Accélération linéaire"
           this.chartOptions.yAxis.title.text = "Accélération (m/s^2)"
           break
 
         case "1":
-          this.chartOptions.title.text = this.axes.length === 1 ? "Accélération angulaire" : "Accélérations angulaires"
+          this.chartOptions.title.text ="Accélération angulaire"
           this.chartOptions.yAxis.title.text = "Accélération (rad/s^2)"
           break
       }
