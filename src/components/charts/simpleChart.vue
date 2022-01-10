@@ -1,7 +1,8 @@
 <template>
-  <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @toSpeed="requestSpeed" @time="getTime" @changeAxes="changeAxes"
-                  :allowChangingAxes="true" @requestCSV="requestCSV" :call="callCSV" :csv="csv">
-    <highcharts class="hc" :options="!speed ? chartOptions : chartOptionsSpeed"/>
+  <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @toSpeed="requestSpeed"
+                  @time="getTime" @changeAxes="changeAxes"
+                  :allowChangingAxes="true" @requestCSV="requestCSV" :call="callCSV" :csv="csv" :haveSpeed="haveSpeed">
+    <highcharts class="hc" :options="!haveSpeed ? chartOptions : chartOptionsSpeed"/>
   </chart-template>
 </template>
 
@@ -42,7 +43,6 @@ export default {
   data: () => ({
     callCSV: false,
     isOpen: false,
-    speed: false,
     counter: 0,
     counterSave: 0,
     chartOptions: {
@@ -144,26 +144,25 @@ export default {
       this.counterSave = this.counter
     },
 
-    requestSpeed: function () {
-      this.speed = true
+    requestSpeed: function (info) {
+      if (!info) {
+        this.chartOptionsSpeed.series[0].data = []
+      } else {
+        this.chartOptionsSpeed.series[0].data = this.chartOptions.series[0].data.map((x) => {
 
-      this.chartOptionsSpeed.series[0].data = this.chartOptions.series[0].data.map((x) => {
 
-        console.log(Number(x[0]) === 0 ? 0 : (Number(x[1]).toFixed(1)/(Number(x[0] - this.tPrec)).toFixed(1) + this.vPrec))
-
-        let a = Number(x[0]) === 0 ? 0 : (Number(x[1]).toFixed(1)/(Number(x[0] - this.tPrec)).toFixed(1) + this.vPrec)
-        this.tPrec = Number(x[0])
-        this.vPrec = a
-        return ([x[0], a])
-      })
-
-      console.log(this.chartOptionsSpeed.series[0].data)
-      },
+          let a = Number(x[0]) === 0 ? 0 : (Number(x[1]).toFixed(1) * (Number(x[0] - this.tPrec)).toFixed(1) + this.vPrec)
+          this.tPrec = Number(x[0])
+          this.vPrec = a
+          return ([x[0], a])
+        })
+      }
+    },
 
     intervalSet: function () {
 
-      if (this.pointsLimitedTime>0) {
-        setTimeout(()=>{
+      if (this.pointsLimitedTime > 0) {
+        setTimeout(() => {
           this.pointsLimited = true
         }, this.pointsLimitedTime)
       }
@@ -173,7 +172,7 @@ export default {
 
         this.chartOptions.series[0].data.push([this.counter * 0.1, parseFloat(this.acceleration.toFixed(2))])
 
-        if(this.pointsLimited) {
+        if (this.pointsLimited) {
           this.chartOptions.series[0].data.shift()
         }
 
@@ -224,7 +223,7 @@ export default {
           this.chartOptions.title.text = this.axes.length === 1 ? "Accélération linéaire" : "Accélérations linéaires"
           this.chartOptions.yAxis.title.text = "Accélération (m/s^1)"
           this.chartOptionsSpeed.title.text = this.axes.length === 1 ? "Vitesse linéaire" : "Vitesses linéaires"
-          this.chartOptionsSpeed.yAxis.title.text = "Speed (m/s^1)"
+          this.chartOptionsSpeed.yAxis.title.text = "Vitesse (m/s^1)"
           break
 
         case "1":
@@ -241,7 +240,7 @@ export default {
     },
 
     timeLimitChange: function (e) {
-        this.pointsLimitedTime = e*1000
+      this.pointsLimitedTime = e * 1000
     }
   },
 
@@ -265,7 +264,7 @@ export default {
 
   watch: {
     acquisition: function (now) {
-      this.speed =false
+      this.chartOptionsSpeed.series[0].data = []
       if (now) {
         this.intervalSet()
         if (this.time) {
@@ -283,7 +282,7 @@ export default {
 
 
     reset: function () {
-      this.speed = false
+      this.chartOptionsSpeed.series[0].data = []
       this.pointsLimited = false
       try {
         clearInterval(this.interval)
@@ -306,6 +305,12 @@ export default {
     this.chartOptionsSpeed.chart.width = (window.screen.width * 0.8) || 400
 
     this.init()
+  },
+
+  computed: {
+    haveSpeed: function () {
+      return (this.chartOptionsSpeed.series[0].data.length > 1)
+    }
   },
 
   emits: ["changeAxes"]

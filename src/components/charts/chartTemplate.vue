@@ -124,7 +124,7 @@
           </ion-buttons>
           <ion-buttons mode="ios" slot="end">
             <ion-button @click="toSpeed" fill="outline" color="primary" mode="ios">
-              <ion-icon :icon="speedometerOutline"></ion-icon>
+              <ion-icon :icon="!haveSpeed ? speedometerOutline : caretBack"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-item>
@@ -153,7 +153,7 @@
         <ion-card-header>
           <ion-card-title style="font-style: italic">
             <ion-icon :icon="copyOutline"/>
-            Tapez pour Copier
+            Tapez pour Copier <span v-if="alertSpeedomeeter && !haveSpeed">(Accélération)</span><span v-if="alertSpeedomeeter && haveSpeed">(Vitesse)</span>
           </ion-card-title>
         </ion-card-header>
       </ion-card>
@@ -204,7 +204,8 @@ import {
   pause,
   pencilOutline,
   close,
-  closeCircle
+  closeCircle,
+  caretBack
 } from "ionicons/icons";
 
 import {Clipboard} from '@capacitor/clipboard';
@@ -216,6 +217,10 @@ export default {
 
 
   props: {
+    haveSpeed: {
+      type: Boolean,
+      default: null
+    },
     csv: {
       type: String,
       default: null
@@ -264,6 +269,7 @@ export default {
 
   data: () => ({
     statut: null,
+    caretBack,
     speedometerOutline,
     close,
     codeDownloadOutline,
@@ -302,7 +308,8 @@ export default {
 
     toSpeed: async function () {
       if (this.alertSpeedomeeter) {
-        this.$emit("toSpeed", '.')
+        console.log(this.haveSpeed)
+        this.$emit("toSpeed", !this.haveSpeed)
       } else {
         await this.openToastAdvertingSpeedometeer()
       }
