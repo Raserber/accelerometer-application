@@ -1,9 +1,12 @@
 <template>
-  <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @toSpeed="requestSpeed"
-                  @time="getTime" @changeAxes="changeAxes"
-                  :allowChangingAxes="true" @requestCSV="requestCSV" :call="callCSV" :csv="csv" :haveSpeed="haveSpeed">
-    <highcharts class="hc" :options="!haveSpeed ? chartOptions : chartOptionsSpeed"/>
-  </chart-template>
+  <div>
+
+    <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @toSpeed="requestSpeed"
+                    @time="getTime" @changeAxes="changeAxes"
+                    :allowChangingAxes="true" @requestCSV="requestCSV" :call="callCSV" :csv="csv" :haveSpeed="haveSpeed">
+      <highcharts class="hc" :options="!haveSpeed ? chartOptions : chartOptionsSpeed"/>
+    </chart-template>
+  </div>
 </template>
 
 <script>
@@ -144,18 +147,32 @@ export default {
       this.counterSave = this.counter
     },
 
+    highPassFilter: function (x, dt, RC) {
+      let y = []
+
+      let a = RC / (RC + dt)
+
+      y[0] = x[0]
+      for (let i = 1; i < x.length; i++) {
+        y[i] = ["", a * y[i - 1][1] + a * (x[i][1] - x[i - 1][1])]
+        y[i][0] = x[i][0]
+      }
+
+      return y
+    },
+
     requestSpeed: function (info) {
       if (!info) {
         this.chartOptionsSpeed.series[0].data = []
       } else {
-        this.chartOptionsSpeed.series[0].data = this.chartOptions.series[0].data.map((x) => {
+        this.chartOptionsSpeed.series[0].data = this.highPassFilter(this.chartOptions.series[0].data.map((x) => {
 
 
           let a = Number(x[0]) === 0 ? 0 : (Number(x[1]).toFixed(1) * (Number(x[0] - this.tPrec)).toFixed(1) + this.vPrec)
           this.tPrec = Number(x[0])
           this.vPrec = a
           return ([x[0], a])
-        })
+        }), 0.1, (1/(2*Math.PI*0.15)))
       }
     },
 
@@ -220,16 +237,16 @@ export default {
       switch (this.accel) {
 
         case "0":
-          this.chartOptions.title.text = this.axes.length === 1 ? "Accélération linéaire" : "Accélérations linéaires"
-          this.chartOptions.yAxis.title.text = "Accélération (m/s^1)"
-          this.chartOptionsSpeed.title.text = this.axes.length === 1 ? "Vitesse linéaire" : "Vitesses linéaires"
+          this.chartOptions.title.text = "Accélération linéaire"
+          this.chartOptions.yAxis.title.text = "Accélération (m/s^2)"
+          this.chartOptionsSpeed.title.text = "Vitesse linéaire"
           this.chartOptionsSpeed.yAxis.title.text = "Vitesse (m/s^1)"
           break
 
         case "1":
-          this.chartOptions.title.text = this.axes.length === 1 ? "Accélération angulaire" : "Accélérations angulaires"
-          this.chartOptions.yAxis.title.text = "Accélération (rad/s^1)"
-          this.chartOptions.title.text = this.axes.length === 1 ? "Vitesse angulaire" : "Vitesses angulaires"
+          this.chartOptions.title.text = "Accélération angulaire"
+          this.chartOptions.yAxis.title.text = "Accélération (rad/s^2)"
+          this.chartOptions.title.text = "Vitesse angulaire"
           this.chartOptions.yAxis.title.text = "Vitesse (rad/s^1)"
           break
       }

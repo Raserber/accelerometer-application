@@ -1,17 +1,30 @@
 <template>
-  <ion-button>
-    Test
-  </ion-button>
+  <base-layout>
+    <ion-input v-model="test"></ion-input>
+    <ion-button @click="share('file.csv', test)">
+      Test
+    </ion-button>
+    {{test2}}
+  </base-layout>
 </template>
 
 <script>
-import { IonButton } from "@ionic/vue";
+import BaseLayout from "@/components/layouts/baseLayout";
+import { IonInput, IonButton } from "@ionic/vue"
 
 export default {
-  name: "testJs",
-
+//eslint-disable-next-line
+  name: "test",
   components: {
+    BaseLayout,
+    IonInput,
     IonButton
+  },
+  data: () => ({
+    test2: null
+  }),
+
+  mounted() {
   }
 }
 </script>

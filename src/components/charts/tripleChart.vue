@@ -1,7 +1,7 @@
 <template>
-  <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @time="getTime"
-                  @requestCSV="requestCSV" :call="callCSV" :csv="csv">
-    <highcharts class="hc" :options="chartOptions"/>
+  <chart-template @timeLimit="timeLimitChange" :axes="axes" :chartTime="{time,counter,counterSave}" @toSpeed="requestSpeed" @time="getTime"
+                  @requestCSV="requestCSV" :call="callCSV" :csv="csv" :haveSpeed="haveSpeed">
+    <highcharts class="hc" :options="!haveSpeed ? chartOptions : chartOptionsSpeed"/>
   </chart-template>
 </template>
 
@@ -92,12 +92,66 @@ export default {
         }
       ]
     },
+    chartOptionsSpeed: {
+      chart: {
+        type: "spline",
+        width: 400,
+        boostThreshold: 1,
+        turboThreshold: 0,
+        animation: true
+      },
+      exporting: {
+        fallbackToExportServer: false,
+        enabled: false
+      },
+      xAxis: {
+        title: {
+          text: "Temps (s)"
+        }
+      },
+      yAxis: {
+        title: {
+          text: "Vitesse $"
+        }
+      },
+      plotOptions: {
+        series: {
+          marker: {
+            enabled: false
+          }
+        }
+      },
+      title: {
+        text: 'Vitesse $ de votre téléphone',
+        align: "center",
+        widthAdjust: -200
+      },
+      series: [
+        {
+          name: "en x",
+          data: [],
+          color: "red"
+        },
+        {
+          name: "en y",
+          data: [],
+          color: "green"
+        },
+        {
+          name: "en z",
+          data: [],
+          color: "blue"
+        }
+      ]
+    },
     interval: undefined,
     timeout: undefined,
     csv: undefined,
     time: undefined,
     pointsLimited: false,
-    pointsLimitedTime: -2
+    pointsLimitedTime: -2,
+    tPrec: 1,
+    vPrec: 0
   }),
 
   methods: {
@@ -105,6 +159,38 @@ export default {
     getTime: function (e) {
       this.time = e
       this.counterSave = this.counter
+    },
+
+    highPassFilter: function (x, dt, RC) {
+      let y = []
+
+      let a = RC / (RC + dt)
+
+      y[0] = x[0]
+      for (let i = 1; i < x.length; i++) {
+        y[i] = ["", a * y[i - 1][1] + a * (x[i][1] - x[i - 1][1])]
+        y[i][0] = x[i][0]
+      }
+
+      return y
+    },
+
+    requestSpeed: function (info) {
+      if (!info) {
+        this.chartOptionsSpeed.series[0].data = []
+        this.chartOptionsSpeed.series[1].data = []
+        this.chartOptionsSpeed.series[2].data = []
+      } else {
+        for (let i = 0; i < 3; i++) {
+          this.chartOptionsSpeed.series[i].data = this.highPassFilter(this.chartOptions.series[i].data.map((x) => {
+
+
+            let a = Number(x[0]) === 0 ? 0 : (Number(x[1]).toFixed(2) * (Number(x[0] - this.tPrec)).toFixed(2) + this.vPrec)
+            this.tPrec = Number(x[0])
+            this.vPrec = a
+            return ([x[0], a])}), 0.1, (1/(2*Math.PI*0.15)))
+        }
+      }
     },
 
     intervalSet: function () {
@@ -148,11 +234,15 @@ export default {
         case "0":
           this.chartOptions.title.text = "Accélérations linéaires"
           this.chartOptions.yAxis.title.text = "Accélération (m/s^2)"
+          this.chartOptionsSpeed.title.text = "Vitesses linéaires"
+          this.chartOptionsSpeed.yAxis.title.text = "Vitesse (m/s^1)"
           break
 
         case "1":
           this.chartOptions.title.text = "Accélérations angulaires"
           this.chartOptions.yAxis.title.text = "Accélération (rad/s^2)"
+          this.chartOptions.title.text = "Vitesses angulaires"
+          this.chartOptions.yAxis.title.text = "Vitesse (rad/s^1)"
           break
       }
     },
@@ -186,6 +276,9 @@ export default {
 
   watch: {
     acquisition: function (now) {
+      this.chartOptionsSpeed.series[0].data = []
+      this.chartOptionsSpeed.series[1].data = []
+      this.chartOptionsSpeed.series[2].data = []
       if (now) {
         this.intervalSet()
         if (this.time) {
@@ -203,6 +296,9 @@ export default {
 
 
     reset: function () {
+      this.chartOptionsSpeed.series[0].data = []
+      this.chartOptionsSpeed.series[1].data = []
+      this.chartOptionsSpeed.series[2].data = []
       this.pointsLimited = false
       try {
         clearInterval(this.interval)
@@ -224,9 +320,16 @@ export default {
 
   mounted() {
     this.chartOptions.chart.width = (window.screen.width * 0.8) || 400
+    this.chartOptionsSpeed.chart.width = (window.screen.width * 0.8) || 400
 
     this.init()
-  }
+  },
+
+  computed: {
+    haveSpeed: function () {
+      return (this.chartOptionsSpeed.series[0].data.length > 1)
+    }
+  },
 
 }
 </script>

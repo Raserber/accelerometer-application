@@ -124,7 +124,7 @@
             </ion-button>
           </ion-buttons>
           <ion-buttons mode="ios" slot="end">
-            <ion-button :disabled="!buttonSpeed" @click="toSpeed" fill="outline" color="primary" mode="ios">
+            <ion-button :disabled="!buttonSpeed && !acquisition" @click="toSpeed" fill="outline" color="primary" mode="ios">
               <ion-icon :icon="!haveSpeed ? speedometerOutline : caretBack"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -155,6 +155,14 @@
           <ion-card-title style="font-style: italic">
             <ion-icon :icon="copyOutline"/>
             Tapez pour Copier <span v-if="alertSpeedomeeter && !haveSpeed">(Accélération)</span><span v-if="alertSpeedomeeter && haveSpeed">(Vitesse)</span>
+          </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+      <ion-card button @click="shareCSV">
+        <ion-card-header>
+          <ion-card-title style="font-style: italic">
+            <ion-icon :icon="copyOutline"/>
+            Tapez pour partager <span v-if="alertSpeedomeeter && !haveSpeed">(Accélération)</span><span v-if="alertSpeedomeeter && haveSpeed">(Vitesse)</span>
           </ion-card-title>
         </ion-card-header>
       </ion-card>
@@ -209,9 +217,12 @@ import {
   caretBack
 } from "ionicons/icons";
 
+
 import {Clipboard} from '@capacitor/clipboard';
 import {useStore} from "vuex";
 import {computed} from "vue";
+import {Directory, Encoding, Filesystem} from "@capacitor/filesystem";
+import {Share} from "@capacitor/share";
 
 export default {
   name: "chartTemplate",
@@ -323,6 +334,41 @@ export default {
       })
 
       await this.openToastClipboardSuccess()
+    },
+
+    shareCSV: async function () {
+      const date = new Date()
+      const fileName = `acquisition-${date.getFullYear()}${date.getDate()}${date.getHours()}${date.getMinutes()}` + ".csv"
+      return await Filesystem.writeFile({
+        path: fileName,
+        data: this.csv,
+        directory: Directory.Documents,
+        encoding: Encoding.UTF8
+      })
+          .then(() => {
+            let a = Filesystem.getUri({
+              directory: Directory.Documents,
+              encoding: Encoding.UTF8,
+              path: fileName
+            })
+
+            Filesystem.readFile({
+              directory: Directory.Documents,
+              encoding: Encoding.UTF8,
+              path: fileName
+            }).then((res)=>{
+              this.test2 = res.data
+            })
+
+            return a
+          })
+          .then((uriResult) => {
+            return Share.share({
+              title: fileName,
+              text: fileName,
+              url: uriResult.uri,
+            });
+          });
     },
 
     testPopover: async function () {
