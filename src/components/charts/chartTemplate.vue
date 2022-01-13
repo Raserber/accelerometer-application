@@ -120,7 +120,7 @@
             </ion-button>
             <ion-button @click="ThreeJSFeature" fill="outline" color="primary" mode="ios">
               <ion-icon slot="start" :icon="prismOutline"/>
-               3D
+              3D
             </ion-button>
           </ion-buttons>
           <ion-buttons mode="ios" slot="end">
@@ -141,7 +141,7 @@
   >
     <ion-header translucent>
       <ion-toolbar>
-        <ion-title>Exporter les données sous format CSV</ion-title>
+        <ion-title>Exporter sous CSV</ion-title>
         <ion-buttons @click="isOpen = false" slot="end">
           <ion-button>
             <ion-icon :icon="closeCircle"/>
@@ -152,17 +152,28 @@
     <ion-content>
       <ion-card button @click="writeToClipboard">
         <ion-card-header>
-          <ion-card-title style="font-style: italic">
-            <ion-icon :icon="copyOutline"/>
-            Tapez pour Copier <span v-if="alertSpeedomeeter && !haveSpeed">(Accélération)</span><span v-if="alertSpeedomeeter && haveSpeed">(Vitesse)</span>
+          <ion-card-title>
+            <ion-icon class="ionIcon" :icon="copyOutline"/>
+            Copier <span v-if="alertSpeedomeeter && !haveSpeed" style="font-style: italic">(Accélération)</span><span
+              v-if="alertSpeedomeeter && haveSpeed" style="font-style: italic">(Vitesse)</span>
           </ion-card-title>
         </ion-card-header>
       </ion-card>
       <ion-card button @click="shareCSV">
         <ion-card-header>
-          <ion-card-title style="font-style: italic">
-            <ion-icon :icon="copyOutline"/>
-            Tapez pour partager <span v-if="alertSpeedomeeter && !haveSpeed">(Accélération)</span><span v-if="alertSpeedomeeter && haveSpeed">(Vitesse)</span>
+          <ion-card-title>
+            <ion-icon class="ionIcon" :icon="shareSocialOutline"/>
+            Partager <span v-if="alertSpeedomeeter && !haveSpeed" style="font-style: italic">(Accélération)</span><span
+              v-if="alertSpeedomeeter && haveSpeed" style="font-style: italic">(Vitesse)</span>
+          </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+      <ion-card button @click="downloadCSV">
+        <ion-card-header>
+          <ion-card-title>
+            <ion-icon class="ionIcon" :icon="downloadOutline"/>
+            Télécharger <span v-if="alertSpeedomeeter && !haveSpeed" style="font-style: italic">(Accélération)</span><span
+              v-if="alertSpeedomeeter && haveSpeed" style="font-style: italic">(Vitesse)</span>
           </ion-card-title>
         </ion-card-header>
       </ion-card>
@@ -214,7 +225,9 @@ import {
   pencilOutline,
   close,
   closeCircle,
-  caretBack
+  caretBack,
+  downloadOutline,
+  shareSocialOutline
 } from "ionicons/icons";
 
 
@@ -295,6 +308,8 @@ export default {
     pause,
     pencilOutline,
     closeCircle,
+    downloadOutline,
+    shareSocialOutline,
     isOpen: false,
     alert: false,
     newAxes: "1",
@@ -339,24 +354,24 @@ export default {
     shareCSV: async function () {
       const date = new Date()
       const fileName = `acquisition-${date.getFullYear()}${date.getDate()}${date.getHours()}${date.getMinutes()}` + ".csv"
-      return await Filesystem.writeFile({
+      await Filesystem.writeFile({
         path: fileName,
         data: this.csv,
-        directory: Directory.Documents,
+        directory: Directory.Cache,
         encoding: Encoding.UTF8
       })
           .then(() => {
             let a = Filesystem.getUri({
-              directory: Directory.Documents,
+              directory: Directory.Cache,
               encoding: Encoding.UTF8,
               path: fileName
             })
 
             Filesystem.readFile({
-              directory: Directory.Documents,
+              directory: Directory.Cache,
               encoding: Encoding.UTF8,
               path: fileName
-            }).then((res)=>{
+            }).then((res) => {
               this.test2 = res.data
             })
 
@@ -369,6 +384,21 @@ export default {
               url: uriResult.uri,
             });
           });
+
+      await this.openToastShareSuccess()
+    },
+
+    downloadCSV: async function () {
+      const date = new Date()
+      const fileName = `acquisition-${date.getFullYear()}${date.getDate()}${date.getHours()}${date.getMinutes()}` + ".csv"
+      await Filesystem.writeFile({
+        path: fileName,
+        data: this.csv,
+        directory: Directory.ExternalStorage,
+        encoding: Encoding.UTF8
+      })
+
+      await this.openToastDownloadSuccess()
     },
 
     testPopover: async function () {
@@ -422,7 +452,34 @@ export default {
         mode: "ios",
         duration: 2000,
         icon: checkmarkCircle,
-        message: 'Saved on your device',
+        message: 'Saved in your clipboard',
+        showCloseButton: false,
+        color: "success"
+      });
+
+      await toast.present();
+    },
+    openToastShareSuccess: async function () {
+      const toast = await toastController.create({
+        position: "bottom",
+        mode: "ios",
+        duration: 500,
+        icon: checkmarkCircle,
+        message: 'Share',
+        showCloseButton: false,
+        color: "success"
+      });
+
+      await toast.present();
+    },
+
+    openToastDownloadSuccess: async function () {
+      const toast = await toastController.create({
+        position: "bottom",
+        mode: "ios",
+        duration: 2000,
+        icon: checkmarkCircle,
+        message: 'Saved in your Downloads directory',
         showCloseButton: false,
         color: "success"
       });
@@ -523,5 +580,7 @@ export default {
 </script>
 
 <style scoped>
-
+.ionIcon {
+  color: #1a8edd;
+}
 </style>
