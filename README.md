@@ -1,5 +1,7 @@
 # accelerometer application
 
+
+**[ DESCRIPTION IN CONSTRUCTION ]**
 > An Application to experiment accelerations for an educational purpose.
 
 [Accelerometer](https://github.com/Raserber/) is a mobile application build with [Ionic](https://ionicframework.com/), [Capacitor](https://capacitorjs.com/)
@@ -29,6 +31,12 @@ or several linear or angular accelerations with notably :
 - a graph of acceleration(s) as a function of time
 - Be able to export these data in CSV, PNG or JPG formats
 - Be able to display speed as a function of time of the device
+
+Solutions :
+
+- I choose [Highcharts](https://www.highcharts.com/) to display graphs
+- This solution allows to export in their formats the graphs
+- Using recorded accelerations to make a primitive of them
 
 
 ## Contributing
