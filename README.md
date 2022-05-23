@@ -11,6 +11,7 @@ and [Vue](https://vuejs.org) as frameworks to use the phone's motion sensors to 
 
 - [feel free to comment or give your opinion](#feel-free-to-comment-or-give-your-opinion)
 - [Origin of the creation](#origin-of-the-creation)
+- [Beginning Of The Development](#beginning-of-the-development)
 
 
 ## Feel Free to Comment or Give Your Opinion
@@ -31,19 +32,20 @@ I decided to use Javascript,
 and more precisely [Ionic](https://ionicframework.com/) and [Capacitor](https://capacitorjs.com/), that I had already used before.
 
 
-I also decided to improve the basic concept of displaying one
+## Beginning Of The Development
+
+I decided to improve the basic concept of displaying one
 or several linear or angular accelerations with notably :
 
-- a graph of acceleration(s) as a function of time
+- a graph of one or more accelerations as a function of time
 - Be able to export these data in CSV, PNG or JPG formats
 - Be able to display speed as a function of time of the device
 
 Solutions :
 
 - I choose [Highcharts](https://www.highcharts.com/) to display graphs
-- This solution allows to export in their formats the graphs
-- Using recorded accelerations to make a primitive of them
-
+  - This solution allows to export in their formats the graphs
+- Display the speed by making a primitive of the acceleration
 
 ## Contributing
 
