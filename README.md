@@ -2,14 +2,20 @@
 
 
 **[ DESCRIPTION IN CONSTRUCTION ]**
-> An Application to experiment accelerations for an educational purpose.
+> An Application to experiment accelerations firstly for an educational purpose.
 
-[Accelerometer](https://github.com/Raserber/) is a mobile application build with [Ionic](https://ionicframework.com/), [Capacitor](https://capacitorjs.com/)
+[Accelerometer](https://github.com/Raserber/accelerometer-application) is a mobile application build with [Ionic](https://ionicframework.com/), [Capacitor](https://capacitorjs.com/)
 and [Vue](https://vuejs.org) as frameworks to use the phone's motion sensors to capture linear and angular accelerations and display them for an educational purpose.
 
 ## Contents
 
+- [feel free to comment or give your opinion](#feel-free-to-comment-or-give-your-opinion)
 - [Origin of the creation](#origin-of-the-creation)
+
+
+## Feel Free to Comment or Give Your Opinion
+
+I am open to any criticism on the design or functionality or even the relevance of the project
 
 
 ## Origin Of The Creation
