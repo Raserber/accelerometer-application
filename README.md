@@ -8,10 +8,10 @@
 ---
 > An Application to experiment accelerations firstly for an educational purpose.
 
-<div style="display: flex;">
-  <image style="width: 33%; max-width: 250px" src="https://cdn.discordapp.com/attachments/607260372390641689/1003784828300312687/x.gif"></image>
-  <image style="width: 33%; max-width: 250px" src="https://cdn.discordapp.com/attachments/607260372390641689/1003784828719747123/xy.gif"></image>
-  <image style="width: 33%; max-width: 250px" src="https://cdn.discordapp.com/attachments/607260372390641689/1003784829126590594/xyz.gif"></image>
+<div style="display: flex">
+  <image style="width: 250px" src="https://cdn.discordapp.com/attachments/972230493871427735/1003787659996573786/x.gif"></image>
+  <image style="width: 250px" src="https://cdn.discordapp.com/attachments/972230493871427735/1003787660340514926/xy.gif"></image>
+  <image style="width: 250px" src="https://cdn.discordapp.com/attachments/972230493871427735/1003787660772507648/xyz.gif"></image>
 </div>
 
 [Accelerometer](https://github.com/Raserber/accelerometer-application) is a mobile application build with [Ionic](https://ionicframework.com/), [Capacitor](https://capacitorjs.com/)
