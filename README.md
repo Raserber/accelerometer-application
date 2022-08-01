@@ -1,11 +1,21 @@
-# accelerometer application
+![# accelerometer application](images/title.png)
 
+![npm version](https://img.shields.io/badge/npm-v6.14.14-blue)
+![node version](https://img.shields.io/badge/node-v14.17.5-blue)
 
-**[ DESCRIPTION IN CONSTRUCTION ]**
+![GitHub Release Date](https://img.shields.io/github/release-date/Raserber/accelerometer-application) ![GitHub last commit](https://img.shields.io/github/last-commit/Raserber/accelerometer-application)
+
+---
 > An Application to experiment accelerations firstly for an educational purpose.
 
+<div style="display: flex;">
+  <image style="width: 33%; max-width: 250px" src="https://cdn.discordapp.com/attachments/607260372390641689/1003784828300312687/x.gif"></image>
+  <image style="width: 33%; max-width: 250px" src="https://cdn.discordapp.com/attachments/607260372390641689/1003784828719747123/xy.gif"></image>
+  <image style="width: 33%; max-width: 250px" src="https://cdn.discordapp.com/attachments/607260372390641689/1003784829126590594/xyz.gif"></image>
+</div>
+
 [Accelerometer](https://github.com/Raserber/accelerometer-application) is a mobile application build with [Ionic](https://ionicframework.com/), [Capacitor](https://capacitorjs.com/)
-and [Vue](https://vuejs.org) as frameworks to use the phone's motion sensors to capture linear and angular accelerations and display them for an educational purpose.
+and [Vue](https://vuejs.org) as frameworks to use the phone's motion sensors to capture linear and angular accelerations and display them.
 
 ## Contents
 
