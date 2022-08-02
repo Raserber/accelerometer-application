@@ -23,9 +23,7 @@
 
 > A mobile application to experiment motion.
 
-<div style="display: flex; flex-wrap: nowrap">
-  <image style="width: 33%; max-width: 250px; min-width: 150px" src="https://cdn.discordapp.com/attachments/972230493871427735/1003787659996573786/x.gif"></image><image style="width: 33%; max-width: 250px; min-width: 150px" src="https://cdn.discordapp.com/attachments/972230493871427735/1003787660340514926/xy.gif"></image><image style="width: 33%; max-width: 250px; min-width: 150px" src="https://cdn.discordapp.com/attachments/972230493871427735/1003787660772507648/xyz.gif"></image>
-</div>
+![demos](images/demos.gif)
 
 ---
 
