@@ -1,6 +1,9 @@
-<h1 align="center">
+<span align="center">
   <img style="width: 125px" src="https://cdn.discordapp.com/attachments/972230493871427735/1004059649546391635/icon.png" alt="project icon">
-  <img src="https://github.com/Raserber/accelerometer-application/blob/master/images/title.png" alt="banner"/>
+</span>
+
+<h1 align="center">
+  <img src="images/title.png" alt="banner"/>
 </h1>
 
 ![npm version](https://img.shields.io/badge/npm-v6.14.14-blue)
@@ -23,7 +26,7 @@
 > A mobile application to experiment motion.
 
 
-<span>
+<span align="center">
   <img src="images/demos.gif" alt="demos"/>
 </span>
 
