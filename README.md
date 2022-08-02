@@ -1,6 +1,6 @@
-<span align="center">
+<div align="center">
   <img style="width: 125px" src="https://cdn.discordapp.com/attachments/972230493871427735/1004059649546391635/icon.png" alt="project icon">
-</span>
+</div>
 
 <h1 align="center">
   <img src="images/title.png" alt="banner"/>
@@ -26,9 +26,9 @@
 > A mobile application to experiment motion.
 
 
-<span align="center">
+<div align="center">
   <img src="images/demos.gif" alt="demos"/>
-</span>
+</div>
 
 ---
 
