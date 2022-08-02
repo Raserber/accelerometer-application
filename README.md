@@ -1,4 +1,6 @@
-![icon](images/icon.png)
+<h1 align="center">
+  <img style="width: 125px" src="https://cdn.discordapp.com/attachments/972230493871427735/1004059649546391635/icon.png" alt="project icon">
+</h1>
 
 ![Accelerometer Application](images/title.png)
 
@@ -21,7 +23,7 @@
 
 > A mobile application to experiment motion.
 
-<div style="display: flex">
+<div style="display: flex; flex-wrap: nowrap">
   <image style="width: 33%; max-width: 250px; min-width: 150px" src="https://cdn.discordapp.com/attachments/972230493871427735/1003787659996573786/x.gif"></image>
   <image style="width: 33%; max-width: 250px; min-width: 150px" src="https://cdn.discordapp.com/attachments/972230493871427735/1003787660340514926/xy.gif"></image>
   <image style="width: 33%; max-width: 250px; min-width: 150px" src="https://cdn.discordapp.com/attachments/972230493871427735/1003787660772507648/xyz.gif"></image>
