@@ -1,6 +1,5 @@
 <template>
   <base-layout>
-    <ion-button href="/test">Test</ion-button>
     <ion-card class="ionCard">
       <ion-card-header>
         <ion-card-title class="title">Acquisition de l'accélération</ion-card-title>

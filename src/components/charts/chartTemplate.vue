@@ -118,10 +118,6 @@
               <ion-icon :icon="codeDownloadOutline" slot="start"/>
               CSV
             </ion-button>
-            <ion-button @click="ThreeJSFeature" fill="outline" color="primary" mode="ios">
-              <ion-icon slot="start" :icon="prismOutline"/>
-              3D
-            </ion-button>
           </ion-buttons>
           <ion-buttons mode="ios" slot="end">
             <ion-button :disabled="!buttonSpeed && !acquisition" @click="toSpeed" fill="outline" color="primary" mode="ios">
@@ -428,19 +424,6 @@ export default {
         message: this.errorPopover,
         showCloseButton: false,
         color: "danger"
-      });
-
-      await toast.present();
-    },
-
-    ThreeJSFeature: async function () {
-      const toast = await toastController.create({
-        position: "bottom",
-        mode: "ios",
-        duration: 2000,
-        icon: hammer,
-        message: 'This feature is in development',
-        showCloseButton: false
       });
 
       await toast.present();

@@ -1,6 +1,6 @@
 <template>
   <docs-layout>
-    <iframe src="https://my.spline.design/iphone13angulaire-f6f31e48999bb3f27046ece0c8f712f8/" frameborder="0" width="100%" height="100%"/>
+    <iframe src="https://accelerometer-application-demos.vercel.app/angular-z.html" frameborder="0" width="100%" height="100%"/>
   </docs-layout>
 </template>
 

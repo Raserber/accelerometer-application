@@ -24,8 +24,6 @@
 ---
 
 > A mobile application to experiment motion.
-
-
 <div align="center">
   <img src="images/demos.gif" alt="demos"/>
 </div>
