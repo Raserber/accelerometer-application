@@ -1,5 +1,5 @@
 <div align="center">
-  <img style="width: 125px" src="https://cdn.discordapp.com/attachments/972230493871427735/1004059649546391635/icon.png" alt="project icon">
+  <img style="width: 125px" src="images/icon.png" alt="project icon">
 </div>
 
 <h1 align="center">
@@ -24,9 +24,10 @@
 ---
 
 > A mobile application to experiment motion.
-<div align="center">
-  <img src="images/demos.gif" alt="demos"/>
-</div>
+
+| linear x + indef time | linear x & y + def time | linear x, y & z + rolling time
+| --- | --- | ---
+| ![demo 1](images/demos/x.gif) | ![demo 2](images/demos/xy.gif) | ![demo 3](images/demos/xyz.gif)
 
 ---
 
@@ -43,17 +44,32 @@
 
 
 - [IN DEVELOPMENT]
-  - Translate into English, *currently the application is mostly in French*
-  - organize and comment the code, optimize some parts
-  - be able to acquire the speed and the relative position of the device *(tests in progress with [Kalman filters like](https://en.wikipedia.org/wiki/Kalman_filter)
-    and [Inertial measurement unit like](https://en.wikipedia.org/wiki/Inertial_measurement_unit))*
+    - Translate into English, *currently the application is mostly in French*
+    - organize and comment the code, optimize some parts
+    - be able to acquire the speed and the relative position of the device *(tests in progress
+      with [Kalman filters like](https://en.wikipedia.org/wiki/Kalman_filter)
+      and [Inertial measurement unit like](https://en.wikipedia.org/wiki/Inertial_measurement_unit))*
 
 ---
 
 ## How To Install
 
-[...]
+### Option 1: Binary
 
+Accelerometer Application is currently available on Android and will be available on IOS a little later.
+
+You can download the latest binary from the [Release page](https://github.com/Raserber/accelerometer-application/releases)
+
+### Option 2: From Source
+
+Reminder of the [npm](https://www.npmjs.com/) and [node](https://nodejs.org/en/) versions know to work :
+
+![npm version](https://img.shields.io/badge/npm-v6.14.14-blue)
+![node version](https://img.shields.io/badge/node-v14.17.5-blue)
+
+![installation code](images/codeInstallation.png)
+
+after build application :
 ## How to Use
 
 ## How to Contribute
@@ -63,5 +79,6 @@ Contributions welcome! Please reach first.
 ## Acknowledgements
 
 - Icon :
-  - [Velocity vector](https://www.freepik.com/vectors/velocity) created by freepik from [Freepik](https://www.freepik.com/)
-  - [Mobile cartoon vector](https://www.freepik.com/vectors/mobile-cartoon) created by pch.vector from [Freepik](https://www.freepik.com/)
+    - [Velocity vector](https://www.freepik.com/vectors/velocity) created by freepik from [Freepik](https://www.freepik.com/)
+    - [Mobile cartoon vector](https://www.freepik.com/vectors/mobile-cartoon) created by pch.vector
+      from [Freepik](https://www.freepik.com/)
