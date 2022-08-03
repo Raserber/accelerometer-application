@@ -67,14 +67,37 @@ Reminder of the [npm](https://www.npmjs.com/) and [node](https://nodejs.org/en/)
 ![npm version](https://img.shields.io/badge/npm-v6.14.14-blue)
 ![node version](https://img.shields.io/badge/node-v14.17.5-blue)
 
-![installation code](images/codeInstallation.png)
+![installation code](images/carbonInstallation.png)
 
-after build application :
-## How to Use
+after, build the application :
+
+![build code](images/carbonBuild.png)
+
+Last command will open [Android Studio](https://developer.android.com/studio) *(for Android)*
+or [Xcode](https://developer.apple.com/xcode/) *(for Ios)* then follow the Ionic guides :
+
+- [Android](https://ionicframework.com/docs/developing/android)
+- [Ios](https://ionicframework.com/docs/developing/ios)
 
 ## How to Contribute
 
-Contributions welcome! Please reach first.
+Contributions welcome!
+
+first, clone the repository and install dependencies :
+
+```shell
+git clone git@github.com:Raserber/accelerometer-application.git
+cd accelerometer-application/
+npm install
+```
+
+To run application in browser as http://localhost:8080/ (usually) like any project brings [Vue](https://vuejs.org/) :
+
+```shell
+npm run serve
+``` 
+
+then, enjoy !
 
 ## Acknowledgements
 

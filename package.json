@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "sync": "npx cap sync",
     "android": "npx cap open android",
+    "ios": "npx cap open ios",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
@@ -18,7 +19,7 @@
     "@capacitor/core": "3.3.3",
     "@capacitor/filesystem": "^1.0.7",
     "@capacitor/haptics": "1.1.3",
-    "@capacitor/ios": "^3.3.4",
+    "@capacitor/ios": "4.0.1",
     "@capacitor/keyboard": "1.2.0",
     "@capacitor/motion": "^1.0.4",
     "@capacitor/network": "^1.0.6",
