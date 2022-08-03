@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "accelerometreSI",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
