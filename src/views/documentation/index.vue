@@ -1,5 +1,5 @@
 <template>
-  <docs-layout>
+  <docs-layout :not-home="false">
     <div class="div">
       Vous pouvez cliquer sur <ion-icon :icon="menuOutline"></ion-icon> pour choisir l'accélération à étudier.
     </div>

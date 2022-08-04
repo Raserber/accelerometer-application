@@ -1,6 +1,6 @@
 <template>
   <docs-layout>
-    <iframe src="https://accelerometer-application-demos.vercel.app/linear-x.html" frameborder="0" width="100%" height="100%"/>
+    <iframe src="https://my.spline.design/iphone13lineairex-17889cd082e2a17127ddfc24d1917dd5/" frameborder="0" width="100%" height="100%"/>
   </docs-layout>
 </template>
 
