@@ -80,11 +80,13 @@ or [Xcode](https://developer.apple.com/xcode/) *(for Ios)* then follow the Ionic
 - [Android](https://ionicframework.com/docs/developing/android)
 - [Ios](https://ionicframework.com/docs/developing/ios)
 
+---
+
 ## How to Contribute
 
 Contributions welcome!
 
-First, clone the repository and install dependencies :
+first, clone the repository and install dependencies :
 
 ```shell
 git clone git@github.com:Raserber/accelerometer-application.git
@@ -100,9 +102,11 @@ npm run serve
 
 then, enjoy !
 
+---
+
 ## Acknowledgements
 
-- Icon resources :
+- Icon :
     - [Velocity vector](https://www.freepik.com/vectors/velocity) created by freepik from [Freepik](https://www.freepik.com/)
     - [Mobile cartoon vector](https://www.freepik.com/vectors/mobile-cartoon) created by pch.vector
       from [Freepik](https://www.freepik.com/)
