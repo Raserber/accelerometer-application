@@ -25,7 +25,7 @@
 > A mobile application to experiment motion.
 
 | linear x + indef time | linear x & y + def time | linear x, y & z + rolling time
-| --- | --- | ---
+| ----------------------------- | ------------------------------ | -------------------------------
 | ![demo 1](images/demos/x.gif) | ![demo 2](images/demos/xy.gif) | ![demo 3](images/demos/xyz.gif)
 
 ---
