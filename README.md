@@ -44,8 +44,9 @@
 
 - [IN DEVELOPMENT]
     - Translate into English, *currently the application is mostly in French*
-    - organize and comment the code, optimize some parts
-    - be able to acquire the speed and the relative position of the device *(tests in progress
+    - Organize and comment the code, optimize some parts
+    - Try to migrate from [Highcharts](https://www.highcharts.com/) to [Chartjs](https://www.chartjs.org/)
+    - Be able to acquire the speed and the relative position of the device *(tests in progress
       with [Kalman filters like](https://en.wikipedia.org/wiki/Kalman_filter)
       and [Inertial measurement unit like](https://en.wikipedia.org/wiki/Inertial_measurement_unit))*
 
@@ -82,7 +83,7 @@ or [Xcode](https://developer.apple.com/xcode/) *(for Ios)* then follow the Ionic
 
 Contributions welcome!
 
-first, clone the repository and install dependencies :
+First, clone the repository and install dependencies :
 
 ```shell
 git clone git@github.com:Raserber/accelerometer-application.git
@@ -100,7 +101,7 @@ then, enjoy !
 
 ## Acknowledgements
 
-- Icon :
+- Icon resources :
     - [Velocity vector](https://www.freepik.com/vectors/velocity) created by freepik from [Freepik](https://www.freepik.com/)
     - [Mobile cartoon vector](https://www.freepik.com/vectors/mobile-cartoon) created by pch.vector
       from [Freepik](https://www.freepik.com/)
