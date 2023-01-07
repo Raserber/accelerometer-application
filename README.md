@@ -24,9 +24,9 @@
 
 > A mobile application to experiment motion.
 
-| linear x + indef time | linear x & y + def time | linear x, y & z + rolling time
-| ----------------------------- | ------------------------------ | -------------------------------
-| ![demo 1](images/demos/x.gif) | ![demo 2](images/demos/xy.gif) | ![demo 3](images/demos/xyz.gif)
+| linear x + indef time | linear x & y + def time | linear x, y & z + rolling time |
+| ----------------------------- | ------------------------------ | ------------------------------- |
+| ![demo 1](images/demos/x.gif) | ![demo 2](images/demos/xy.gif) | ![demo 3](images/demos/xyz.gif) |
 
 ---
 
@@ -43,11 +43,11 @@
 
 
 - [IN DEVELOPMENT]
-    - Translate into English, *currently the application is mostly in French*
-    - Organize and comment the code, optimize some parts
-    - Try to migrate from [Highcharts](https://www.highcharts.com/) to [Chartjs](https://www.chartjs.org/)
-    - Update dependencies to the latest version (including to [Capacitor 4.0](https://ionicframework.com/blog/announcing-capacitor-4-0/))
-    - Be able to acquire the speed and the relative position of the device *(tests in progress
+  1. **Organize and comment the code, optimize some parts**
+  2. Translate into English, *currently the application is mostly in French*
+  3. Try to migrate from [Highcharts](https://www.highcharts.com/) to [Chartjs](https://www.chartjs.org/)
+  4. Update dependencies to the latest version (including to [Capacitor 4.0](https://ionicframework.com/blog/announcing-capacitor-4-0/))
+  5. Be able to acquire the speed and the relative position of the device *(inconclusive tests
       with [Kalman filters like](https://en.wikipedia.org/wiki/Kalman_filter)
       and [Inertial measurement unit like](https://en.wikipedia.org/wiki/Inertial_measurement_unit))*
 
